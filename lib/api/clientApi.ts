@@ -1,7 +1,6 @@
 import { api } from "./api";
 import type { CreateNote, Note } from "@/types/note";
 import { RegisterLoginRequest, User } from "@/types/user";
-import { string } from "yup";
 
 interface FetchNotesResponse {
   notes: Note[];
