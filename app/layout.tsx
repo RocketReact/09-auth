@@ -7,6 +7,7 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import { ReactNode } from "react";
 import { OG_IMAGE, SITE_DOMAIN, SITE_NAME } from "@/config/metadata";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Note Hub - Create and Organize Your Notes Fast & Easy",
@@ -37,15 +38,17 @@ export default function RootLayout({
   modal: ReactNode;
 }>) {
   return (
-    <TanStackProvider>
-      <html lang="en">
-        <body className={roboto.variable}>
-          <Header />
-          {children}
-          {modal}
-          <Footer />
-        </body>
-      </html>
-    </TanStackProvider>
+    <html lang="en">
+      <body className={roboto.variable}>
+        <TanStackProvider>
+          <AuthProvider>
+            <Header />
+            {children}
+            {modal}
+            <Footer />
+          </AuthProvider>
+        </TanStackProvider>
+      </body>
+    </html>
   );
 }
