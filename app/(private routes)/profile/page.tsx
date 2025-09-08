@@ -1,33 +1,47 @@
 import css from "./ProfilePage.module.css";
 import Link from "next/link";
 import { Metadata } from "next";
+import { getServerMe } from "@/lib/api/serverApi";
+import { SITE_NAME } from "@/config/metadata";
 
-//export async function generateMetadata(): Promise<Metadata> {
-//  const user = await getServerMe;
-//}
+export async function generateMetadata(): Promise<Metadata> {
+  const user = await getServerMe();
+  const title =
+    SITE_NAME + " - " + (user?.username + " profile" || "Profile page");
+  const description =
+    "Manage your profile and account settings on " + SITE_NAME;
+  return {
+    title,
+    description,
+  };
+}
 
 export default async function ProfilePage() {
+  const user = await getServerMe();
+
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
         <div className={css.header}>
           <h1 className={css.formTitle}>Profile Page</h1>
-          <Link href="" className={css.editProfileButton}>
+          <Link href="/profile/edit" className={css.editProfileButton}>
             Edit Profile
           </Link>
         </div>
         <div className={css.avatarWrapper}>
-          <img
-            src="Avatar"
-            alt="User Avatar"
-            width={120}
-            height={120}
-            className={css.avatar}
-          />
+          {user.avatar && (
+            <img
+              src="Avatar"
+              alt="User Avatar"
+              width={120}
+              height={120}
+              className={css.avatar}
+            />
+          )}
         </div>
         <div className={css.profileInfo}>
-          <p>Username: your_username</p>
-          <p>Email: your_email@example.com</p>
+          <p>Username: {user?.username}</p>
+          <p>Email: {user?.email}</p>
         </div>
       </div>
     </main>

@@ -1,7 +1,7 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { fetchNotes } from "@/lib/api/clientApi";
+import { fetchServerNotes } from "@/lib/api/serverApi";
 import { HydrationBoundary } from "@tanstack/react-query";
-import NotesClient from "@/app/notes/filter/[...slug]/Notes.client";
+import NotesClient from "./Notes.client";
 import { Metadata } from "next";
 import { OG_IMAGE, SITE_DOMAIN, SITE_NAME } from "@/config/metadata";
 
@@ -39,7 +39,7 @@ export default async function TasksPage({ params }: TasksPageProps) {
   await queryClient.prefetchQuery({
     queryKey: ["notes", page, search, tag],
     queryFn: () =>
-      fetchNotes({
+      fetchServerNotes({
         page,
         search,
         ...(tag && tag !== "All" ? { tag } : {}),

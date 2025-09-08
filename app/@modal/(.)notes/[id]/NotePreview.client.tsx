@@ -5,8 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api/clientApi";
 import Modal from "@/components/Modal/Modal";
 
-export default function NotePreviewClient() {
-  const { id } = useParams<{ id: string }>();
+type NotePreviewClientProps = {
+  id: string;
+};
+
+export default function NotePreviewClient({ id }: NotePreviewClientProps) {
+  const router = useRouter();
   const {
     data: note,
     isLoading,
@@ -17,7 +21,7 @@ export default function NotePreviewClient() {
     queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
   });
-  const router = useRouter();
+
   const handleCloseModal = () => router.back();
 
   return (

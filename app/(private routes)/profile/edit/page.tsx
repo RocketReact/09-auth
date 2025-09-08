@@ -23,7 +23,6 @@ export default async function ProfilePage() {
     <main className={css.mainContent}>
       <div className={css.profileCard}>
         <h1 className={css.formTitle}>Edit Profile</h1>
-
         <EditProfile user={user} />
       </div>
     </main>

@@ -42,7 +42,7 @@ export async function deleteNote(id: string): Promise<Note> {
 }
 
 export const register = async (data: RegisterLoginRequest) => {
-  const res = await api.post<User>(`/register`, data);
+  const res = await api.post<User>(`/auth/register`, data);
   return res.data;
 };
 
